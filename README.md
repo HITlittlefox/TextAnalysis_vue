@@ -1,3 +1,17 @@
+# 魔改后“能用”的前端登陆界面：
+# 关键词：login、index、详情页、vue、vue-ui、router、axios
+
+## 需要用到的依赖与东西：
+viewui、vue-cli、router、axios
+(npm换成淘宝镜像源后可以使用cnpm)
+1. cnpm install view-design --save
+2. cnpm install -g @vue/cli
+3. cnpm install vue-router
+4. cnpm install axios --save
+
+----------------------------------------------------------------------------------------
+以下为原readme.md
+
 # hello_2
 --------------------------------------------常用--------------------------------------------
 ## ViewUI安装与引入
