@@ -45,7 +45,6 @@
                 </FormItem>
                 <FormItem prop="g">
                   <RadioGroup v-model="formValidate.g">
-                  
                     <!-- 官方资料显示：laber只能是string或者namber -->
                   </RadioGroup>
                 </FormItem>
@@ -58,7 +57,7 @@
                   <Button
                     type="primary"
                     :loading="formValidate.loading"
-                    @click="handleSubmit('formValidate')"
+                    onclick="xxx_re"
                     size="large"
                   >
                     <span v-if="!formValidate.loading">提交</span>
@@ -101,33 +100,29 @@ export default {
     };
   },
   methods: {
-    push_email(){
-      //点击提交email
-      this.axios.get("/url/xxx", {
+    xxx_re(){
+      this.axios.post("port/register/register", {
         params: {
-          get_name: this.formValidate.authcode,
+          email_address:this.formValidate.name,
+          verify_code:this.formValidate.authcode,
+          password:this.formValidate.password,
         },
+      }).then(function(res){
+        console.log(res)
       });
     }
     },
-    handleReset(name) {
-      // 清除页面上的数据
-      this.$refs[name].resetFields();
-    },
-
-    // 延迟
-    fetchData() {
-      setTimeout(() => {
-        this.$router.push("/iview_index");
-      }, 2000);
-    },
-
-    // 改变按钮的显示状态：loading中。。。
-    toLoading() {
-      this.formValidate.loading = true;
-    },
-
-  };
+    push_email(){
+      //点击提交email
+      this.axios.get("127.0.0.1:8000/register/get_email_verify", {
+        params: {
+          email_address: this.formValidate.authcode,
+        },
+      }).then(function(res){
+        console.log(res)
+      });
+    }
+    };
 
 </script>
 
