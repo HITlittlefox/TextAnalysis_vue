@@ -35,24 +35,14 @@
                   ></Input>
                 </FormItem>
 
-                <FormItem prop="g">
-                  <RadioGroup v-model="formValidate.g">
-                    <Radio label="a">仅前端</Radio>
-                    <Radio label="b">发送给后端</Radio>
-                    <!-- 官方资料显示：laber只能是string或者namber -->
-                  </RadioGroup>
-                </FormItem>
+                <FormItem prop="g"> </FormItem>
 
                 <FormItem v-show="formValidate.g == 'b'" label="IP地址" prop="ip">
                   <Input v-model="formValidate.ip"></Input>
                 </FormItem>
                 <FormItem>
                   <!-- <Button type="primary" @click="handleSubmit('formValidate')" size='large'>Submit</Button> -->
-                  <Button
-                    type="primary"
-                    onclick="check_in"
-                    size="large"
-                  >
+                  <Button type="primary" onclick="check_in" size="large">
                     <span v-if="!formValidate.loading">提交</span>
                     <span v-else>Loading...</span>
                   </Button>

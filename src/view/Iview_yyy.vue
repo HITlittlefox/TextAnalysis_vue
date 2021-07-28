@@ -47,19 +47,39 @@
           <br />
           <!-- <p style="font-size: 36px" align="center">输入吧~</p>-->
 
+          <Row
+            ><Col span="12">
+              <Input
+                number
+                maxlength="8"
+                placeholder="请输入起始查询⽇期（8位数字）"
+                style="width: 300px"
+                v-model="detail.start_date"
+              />
+            </Col>
+          </Row>
+          <br />
+          <Row
+            ><Col span="12">
+              <Input
+                number
+                maxlength="8"
+                placeholder="请输入结束查询⽇期（8位数字）"
+                style="width: 300px"
+                v-model="detail.end_date"
+              /> </Col
+          ></Row>
+          <br />
           <Input
-            type="text"
-            style="height: 135px; width: 700px; font-size: 80px"
+            number
+            maxlength="6"
+            placeholder="请输入您感兴趣的股票代码（6位数字）"
+            style="width: 300px"
             v-model="detail.stock_code"
-            placeholder="请输入内容"
-            size="large"
-            autofocus
-          ></Input>
-          <router-link to="iview_answer"
-            ><Button onclick="request" style="height: 40px" type="success" size="large"
-              >提交</Button
-            ></router-link
-          >
+          />
+
+          <Button onclick="request" type="success" size="default">提交</Button>
+          <router-link to="iview_answer"></router-link>
 
           <!--<Button size="long" type="success">点击提交</Button>-->
           <br />
@@ -105,7 +125,8 @@ export default {
           },
         })
         .then(function (res) {
-          console.log(res);
+          //console.log(res);
+          this.list=data.news
         });
     },
   },
