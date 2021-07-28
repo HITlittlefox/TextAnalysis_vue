@@ -14,7 +14,6 @@
     <!-- -------------简介------------- -->
     <Row type="flex" justify="center" style="padding: 40px 0 40px 0">
       <Col span="15">
-        <br />
         <h2 style="font-size: 40px" align="center">Hello,{{ welcome }}！</h2>
         <p style="font-size: 40px" align="center">
           <!--This is a template for a simple marketing or informational website. It includes
@@ -28,7 +27,6 @@
             >Learn more >></Button
           >
         </p>
-        <br />
       </Col>
     </Row>
 
@@ -42,9 +40,8 @@
           :key="heading"
           style="padding: 10px 10px 10px 10px"
         >
-          <br />
           <h2>{{ heading }}</h2>
-          <br />
+
           <!-- <p style="font-size: 36px" align="center">输入吧~</p>-->
 
           <Row
@@ -83,11 +80,32 @@
 
           <!--<Button size="long" type="success">点击提交</Button>-->
           <br />
-          <br />
+        </Card>
+      </Col>
+      <Col span="30">
+        <br />
+
+        <Card
+          class="Card"
+          v-for="heading in headings"
+          :key="heading"
+          style="font-size: 24px"
+        >
+          <div>
+            <strong>相关新闻排序:</strong>
+            <!--<pre><a href="www,baidu.com">123</a><Tag style="font-size: 20px" checkable color="success">456</Tag></pre>-->
+            <br /><br />
+            <List v-for="item in list" border size="large">
+              <ListItem
+                ><a v-bind:href="item.url" target="_blank"
+                  >{{ item.title }}{{ item.date }}{{ item.source }}</a
+                ><Tag style="font-size: 60px" size="large" checkable color="success"></Tag
+              ></ListItem>
+            </List>
+          </div>
         </Card>
       </Col>
     </Row>
-
     <!-- -------------结尾------------- -->
     <Row type="flex" justify="center" style="padding: 20px 0 20px 0">
       <!-- <Col span="15" style="background:#409eff;"> -->
@@ -107,6 +125,18 @@ export default {
       headings: [""],
       welcome: "陆家嘴巨鳄",
       pj_name: "请输入您感兴趣的股票代码",
+      list: [
+        {
+          url: "https://www.baidu.com",
+          title: "这里是标题1",
+          emot: "0",
+        },
+        {
+          url: "https://www.zhihu.com",
+          title: "这里是标题2",
+          emot: "1",
+        },
+      ],
       detail: {
         stock_code: "",
         start_date: "",
@@ -126,9 +156,23 @@ export default {
         })
         .then(function (res) {
           //console.log(res);
-          this.list=data.news
+          if (res["msg"] == "查询成功") {
+            this.toLoading();
+            this.list = data.news;
+          }
         });
     },
+  },
+  // 延迟
+  fetchData3() {
+    setTimeout(() => {
+      this.$router.push("/iview_answer");
+    }, 2000);
+  },
+
+  // 改变按钮的显示状态：loading中。。。
+  toLoading() {
+    this.formValidate.loading = true;
   },
 };
 </script>

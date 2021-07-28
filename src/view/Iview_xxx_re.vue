@@ -89,7 +89,7 @@ export default {
         g: "a",
         ip: "http://192.168.101.55:8888/",
         loading: false,
-        authcode:"",
+        authcode: "",
       },
       ruleValidate: {
         name: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
@@ -100,30 +100,48 @@ export default {
     };
   },
   methods: {
-    xxx_re(){
-      this.axios.post("port/register/register", {
-        params: {
-          email_address:this.formValidate.name,
-          verify_code:this.formValidate.authcode,
-          password:this.formValidate.password,
-        },
-      }).then(function(res){
-        console.log(res)
-      });
-    }
+    xxx_re() {
+      this.axios
+        .post("port/register/register", {
+          params: {
+            email_address: this.formValidate.name,
+            verify_code: this.formValidate.authcode,
+            password: this.formValidate.password,
+          },
+        })
+        .then(function (res) {
+          //console.log(res);
+          if (res["msg"] == "注册成功") {
+            this.toLoading();
+            this.fetchData2();
+          }
+        });
     },
-    push_email(){
-      //点击提交email
-      this.axios.get("127.0.0.1:8000/register/get_email_verify", {
+  },
+  push_email() {
+    //点击提交email
+    this.axios
+      .get("127.0.0.1:8000/register/get_email_verify", {
         params: {
           email_address: this.formValidate.authcode,
         },
-      }).then(function(res){
-        console.log(res)
+      })
+      .then(function (res) {
+        console.log(res);
       });
-    }
-    };
+  },
+  // 延迟
+  fetchData2() {
+    setTimeout(() => {
+      this.$router.push("/iview_login");
+    }, 2000);
+  },
 
+  // 改变按钮的显示状态：loading中。。。
+  toLoading() {
+    this.formValidate.loading = true;
+  },
+};
 </script>
 
 <style lang="scss" scoped>

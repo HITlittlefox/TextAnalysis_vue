@@ -91,7 +91,11 @@ export default {
           },
         })
         .then(function (res) {
-          console.log(res);
+          //console.log(res);
+          if (res["msg"] == "成功登录") {
+            this.toLoading();
+            this.fetchData();
+          }
         });
     },
   },
