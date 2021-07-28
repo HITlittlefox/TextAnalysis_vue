@@ -83,8 +83,8 @@ export default {
           get_name: this.detail.title,
         },
       })
-            this.toLoading();
-            this.fetchData();
+            //this.toLoading();
+            //this.fetchData();
     }
   },
 };

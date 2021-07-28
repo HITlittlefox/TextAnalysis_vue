@@ -8,6 +8,8 @@ import 'view-design/dist/styles/iview.css';
 import iview_xxx from './view/Iview_xxx';
 import iview_yyy from './view/Iview_yyy';
 import iview_zzz from './view/Iview_yyy_third';
+import iview_xxx2 from './view/Iview_xxx_re';
+
 //import Iview_zzz from './view/Iview_zzz';
 //import Iview_router_1 from './view/Iview_router_1';
 import loding from './view/loding';
@@ -66,6 +68,11 @@ const router = new Router({
         path: '/iview_answer',
         name: 'iview_answer',
         component: iview_zzz
+      },
+      {
+        path: '/iview_re',
+        name: 'iview_re',
+        component: iview_xxx2
       },
       // -------------------这部分演示 动态路由 + 编程式导航 -------------------
       //{

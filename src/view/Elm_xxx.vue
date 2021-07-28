@@ -16,15 +16,15 @@
                   <el-divider></el-divider>
                   <!-- form表单 -->
                   <el-form :model="nameValidateForm" ref="nameValidateForm" label-width="95px" class="demo-ruleForm">
-                    <!-- 用户名 -->
+                    <!-- 邮箱 -->
                     <el-form-item
-                        label="用户名"
+                        label="邮箱"
                         prop="name"
                         :rules="[
-                        { required: true, message: '用户名不能为空'},
+                        { required: true, message: '邮箱不能为空'},
                         ]"
                         >
-                        <el-input placeholder="请输入用户名" type="text" v-model="nameValidateForm.name" autocomplete="off"></el-input>
+                        <el-input placeholder="请输入邮箱" type="text" v-model="nameValidateForm.name" autocomplete="off"></el-input>
                     </el-form-item>
 
                     <!-- 密码 -->
