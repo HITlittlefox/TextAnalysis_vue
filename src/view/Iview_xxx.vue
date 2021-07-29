@@ -9,7 +9,9 @@
     <Row type="flex" justify="center">
       <Col span="18" style="height: 600px">
         <Layout>
-          <Content style="display: flex; justify-content: center; background: #eeeeee">
+          <Content
+            style="display: flex; justify-content: center; background: #eeeeee"
+          >
             <Card class="Card">
               <br />
               <h1 style="text-align: center; font-size: 32px">欢迎登陆</h1>
@@ -24,7 +26,10 @@
                 :label-width="80"
               >
                 <FormItem label="邮箱" prop="name">
-                  <Input v-model="formValidate.name" placeholder="请输入邮箱"></Input>
+                  <Input
+                    v-model="formValidate.name"
+                    placeholder="请输入邮箱"
+                  ></Input>
                 </FormItem>
                 <FormItem label="密码" prop="password">
                   <Input
@@ -37,12 +42,16 @@
 
                 <FormItem prop="g"> </FormItem>
 
-                <FormItem v-show="formValidate.g == 'b'" label="IP地址" prop="ip">
+                <FormItem
+                  v-show="formValidate.g == 'b'"
+                  label="IP地址"
+                  prop="ip"
+                >
                   <Input v-model="formValidate.ip"></Input>
                 </FormItem>
                 <FormItem>
                   <!-- <Button type="primary" @click="handleSubmit('formValidate')" size='large'>Submit</Button> -->
-                  <Button type="primary" onclick="check_in" size="large">
+                  <Button type="primary" v-on:click="check_in" size="large">
                     <span v-if="!formValidate.loading">提交</span>
                     <span v-else>Loading...</span>
                   </Button>
@@ -63,6 +72,8 @@
 </template>
 
 <script>
+import { axiosGet, axiosPost } from "../data";
+
 export default {
   data() {
     return {
@@ -75,28 +86,27 @@ export default {
       },
       ruleValidate: {
         name: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
-        password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
-        ip: [{ required: true, message: "后端IP地址不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "密码不能为空", trigger: "blur" },],
+        ip: [{ required: true, message: "后端IP地址不能为空", trigger: "blur" },],
         g: [{ required: true, message: "", trigger: "change" }],
       },
     };
   },
   methods: {
     check_in() {
-      this.axios
-        .post("port/login/login", {
-          params: {
-            email_address: this.formValidate.name,
-            password: this.formValidate.password.$md5,
-          },
-        })
-        .then(function (res) {
-          //console.log(res);
-          if (res["msg"] == "成功登录") {
-            this.toLoading();
-            this.fetchData();
-          }
-        });
+      // console.log(this.formValidate)
+      const self = this
+      axiosPost("/login/login", {
+        email_address: this.formValidate.name,
+        // TODO: md5
+        password: this.formValidate.password,
+      }).then(function (res) {
+        console.log(res);
+        if (res.msg == "登录成功") {
+          self.toLoading();
+          self.fetchData();
+        }
+      })
     },
     handleSubmit(name) {
       //点击提交
