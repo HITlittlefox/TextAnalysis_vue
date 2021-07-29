@@ -31,7 +31,7 @@
     </Row>
 
     <!-- -------------主体------------- -->
-    <Row type="flex" justify="center" style="padding: 0px 0 200px 0">
+    <Row type="flex" justify="center" style="padding: 0px 160px 200px 0">
       <!-- <Col span="15" style="background:#409eff;"> -->
       <Col span="30">
         <Card
@@ -75,7 +75,13 @@
             v-model="detail.stock_code"
           />
 
-          <Button v-on:click="request" type="success" size="default">提交</Button>
+          <Button
+            :loading="formValidate.loading"
+            v-on:click="request"
+            type="success"
+            size="default"
+            ><span v-if="!formValidate.loading">提交</span></Button
+          >
           <router-link to="iview_answer"></router-link>
 
           <!--<Button size="long" type="success">点击提交</Button>-->
@@ -95,13 +101,14 @@
             <strong>相关新闻排序:</strong>
             <!--<pre><a href="www,baidu.com">123</a><Tag style="font-size: 20px" checkable color="success">456</Tag></pre>-->
             <br /><br />
-            <List v-for="item in list" border size="large">
+            <!--<List v-for="item in list" border size="large">
               <ListItem
                 ><a v-bind:href="item.url" target="_blank"
                   >{{ item.title }}{{ item.date }}{{ item.source }}</a
                 ><Tag style="font-size: 60px" size="large" checkable color="success"></Tag
               ></ListItem>
-            </List>
+            </List>-->
+            <Table stripe :columns="columns1" :data="data1"></Table>
           </div>
         </Card>
       </Col>
@@ -123,9 +130,38 @@ import { axiosGet, axiosPost } from "../data";
 export default {
   data() {
     return {
+      columns1: [
+        {
+          title: "Title",
+          key: "title",
+        },
+        {
+          title: "Date",
+          key: "date",
+          width: "170px",
+        },
+        {
+          title: "Source",
+          key: "source",
+          width: "130px",
+        },
+        {
+          title: "Url",
+          key: "url",
+        },
+        {
+          title: "Emot",
+          key: "emot",
+          width: "72px",
+        },
+      ],
+      data1: [],
       headings: [""],
       welcome: "陆家嘴巨鳄",
       pj_name: "请输入您感兴趣的股票代码",
+      formValidate: {
+        loading: false,
+      },
       list: [
         {
           url: "https://www.baidu.com",
@@ -149,15 +185,16 @@ export default {
     request() {
       // console.log(this.formValidate)
       const self = this;
-      axiosPost("/service/get_company_news", {
-        stock_code: this.stock_code,
-        start_date: this.start_date,
-        end_date: this.end_date,
+      axiosGet("/service/get_company_news", {
+        stock_code: this.detail.stock_code,
+        start_date: this.detail.start_date,
+        end_date: this.detail.end_date,
       }).then(function (res) {
         console.log(res);
         if (res.msg == "查询成功") {
           self.toLoading();
-          this.list = data.news;
+          self.list = res.data.news;
+          self.data1 = res.data.news;
         }
       });
     },
@@ -170,7 +207,9 @@ export default {
 
     // 改变按钮的显示状态：loading中。。。
     toLoading() {
-      this.formValidate.loading = true;
+      setTimeout(() => {
+        this.formValidate.loading = true;
+      }, 2);
     },
   },
 };
@@ -180,12 +219,12 @@ export default {
 .Card {
   // 原生css
   background: #fbfbfb;
-  width: 860px;
+  width: 1500px;
   // height: 300px;
   display: inline-block;
   margin: 0.3em;
   border-radius: 20px;
-  // justify-content: center; // 这样会使得Card里面的元素居中
+  justify-content: center; // 这样会使得Card里面的元素居中
   box-shadow: 5px 5px 5px 5px #cccccc;
 }
 //.Card2 {

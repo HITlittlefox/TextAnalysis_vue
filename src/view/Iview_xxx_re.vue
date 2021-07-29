@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { axiosGet } from "../data";
+import { axiosGet, axiosPost } from "../data";
 export default {
   data() {
     return {
@@ -113,7 +113,7 @@ export default {
         console.log(res);
         if (res.msg == "注册成功") {
           self.toLoading();
-          self.fetchData();
+          self.fetchData2();
         }
       });
     },

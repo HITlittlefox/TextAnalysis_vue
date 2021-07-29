@@ -63,19 +63,22 @@ app.get('/service/get_company_news', (req, res) => {
                     {
                         title: '上市公司X面临破产清算',
                         date: '2014年5月14日',
-                        source: '野鸡新闻',
+                        source: '夜之城新闻',
+                        url:'http://www.baidu.com',
                         emot: -1
                     },
                     {
                         title: 'X公司股指逼近600点冲击新高',
                         date: '2014年3月12日',
                         source: '野鸡新闻',
+                        url:'http://www.zhihu.com',
                         emot: 1
                     },
                     {
                         title: 'X公司今日在深交所挂牌上市',
                         date: '2013年12月1日',
-                        source: '野鸡新闻',
+                        source: '吧台新闻',
+                        url:'http://www.bilibili.com',
                         emot: 0
                     }
                 ]
