@@ -39,7 +39,7 @@
                     v-model="formValidate.authcode"
                     placeholder="请输入验证码"
                   ></Input>
-                  <Button onclick="push_email" type="primary" size="small"
+                  <Button v-on:click="push_email" type="primary" size="small"
                     >获取验证码</Button
                   >
                 </FormItem>
@@ -57,7 +57,7 @@
                   <Button
                     type="primary"
                     :loading="formValidate.loading"
-                    onclick="xxx_re"
+                    v-on:click="xxx_re"
                     size="large"
                   >
                     <span v-if="!formValidate.loading">提交</span>
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { axiosGet } from "../data";
 export default {
   data() {
     return {
@@ -101,33 +102,30 @@ export default {
   },
   methods: {
     xxx_re() {
-      this.axios
-        .post("port/register/register", {
-          params: {
-            email_address: this.formValidate.name,
-            verify_code: this.formValidate.authcode,
-            password: this.formValidate.password,
-          },
-        })
-        .then(function (res) {
-          //console.log(res);
-          if (res["msg"] == "注册成功") {
-            this.toLoading();
-            this.fetchData2();
-          }
-        });
+      // console.log(this.formValidate)
+      const self = this;
+      axiosPost("/register/register", {
+        email_address: this.formValidate.name,
+        verify_code: this.formValidate.authcode,
+        password: this.formValidate.password,
+        // TODO: md5
+      }).then(function (res) {
+        console.log(res);
+        if (res.msg == "注册成功") {
+          self.toLoading();
+          self.fetchData();
+        }
+      });
     },
     push_email() {
-      //点击提交email
-      this.axios
-        .get("127.0.0.1:8000/register/get_email_verify", {
-          params: {
-            email_address: this.formValidate.authcode,
-          },
-        })
-        .then(function (res) {
-          console.log(res);
-        });
+      // console.log(this.formValidate)
+      const self = this;
+      axiosGet("/register/get_email_verify", {
+        email_address: this.formValidate.name,
+        // TODO: md5
+      }).then(function (res) {
+        console.log(res);
+      });
     },
     // 延迟
     fetchData2() {

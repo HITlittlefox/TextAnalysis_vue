@@ -75,7 +75,7 @@
             v-model="detail.stock_code"
           />
 
-          <Button onclick="request" type="success" size="default">提交</Button>
+          <Button v-on:click="request" type="success" size="default">提交</Button>
           <router-link to="iview_answer"></router-link>
 
           <!--<Button size="long" type="success">点击提交</Button>-->
@@ -119,6 +119,7 @@
 </template>
 
 <script>
+import { axiosGet, axiosPost } from "../data";
 export default {
   data() {
     return {
@@ -146,21 +147,19 @@ export default {
   },
   methods: {
     request() {
-      this.axios
-        .post("port/service/get_company_news", {
-          params: {
-            stock_code: this.stock_code,
-            start_date: this.start_date,
-            end_date: this.end_date,
-          },
-        })
-        .then(function (res) {
-          //console.log(res);
-          if (res["msg"] == "查询成功") {
-            this.toLoading();
-            this.list = data.news;
-          }
-        });
+      // console.log(this.formValidate)
+      const self = this;
+      axiosPost("/service/get_company_news", {
+        stock_code: this.stock_code,
+        start_date: this.start_date,
+        end_date: this.end_date,
+      }).then(function (res) {
+        console.log(res);
+        if (res.msg == "查询成功") {
+          self.toLoading();
+          this.list = data.news;
+        }
+      });
     },
     // 延迟
     fetchData3() {
