@@ -98,53 +98,53 @@ export default {
           }
         });
     },
-  },
-  handleSubmit(name) {
-    //点击提交
-    this.$refs[name].validate((valid) => {
-      if (valid) {
-        // this.$Message.success(`邮箱：${this.formValidate.name}，密码：${this.formValidate.password}`);
-        // this.$router.push("/iview_index");
-        if (this.formValidate.g == "a") {
-          this.$Message.success(
-            `邮箱：${this.formValidate.name}，密码：${this.formValidate.password}`
-          );
-          this.toLoading();
-          this.fetchData();
+    handleSubmit(name) {
+      //点击提交
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          // this.$Message.success(`邮箱：${this.formValidate.name}，密码：${this.formValidate.password}`);
           // this.$router.push("/iview_index");
+          if (this.formValidate.g == "a") {
+            this.$Message.success(
+              `邮箱：${this.formValidate.name}，密码：${this.formValidate.password}`
+            );
+            this.toLoading();
+            this.fetchData();
+            // this.$router.push("/iview_index");
+          } else {
+            this.$Message.success(
+              `发送后端get：${this.formValidate.ip}${this.formValidate.name}`
+            );
+            this.toLoading();
+            this.fetchData();
+            // this.$router.push("/iview_index");
+            //axios.get("api/getData.php", {
+            //get_name: this.formValidate.name,
+            //get_pwd: this.formValidate.password,
+            //});
+            //axios.get第一个参数是后端给我的接口地址
+          }
         } else {
-          this.$Message.success(
-            `发送后端get：${this.formValidate.ip}${this.formValidate.name}`
-          );
-          this.toLoading();
-          this.fetchData();
-          // this.$router.push("/iview_index");
-          //axios.get("api/getData.php", {
-          //get_name: this.formValidate.name,
-          //get_pwd: this.formValidate.password,
-          //});
-          //axios.get第一个参数是后端给我的接口地址
+          this.$Message.error("格式错误，请检查！");
         }
-      } else {
-        this.$Message.error("格式错误，请检查！");
-      }
-    });
-  },
-  handleReset(name) {
-    // 清除页面上的数据
-    this.$refs[name].resetFields();
-  },
+      });
+    },
+    handleReset(name) {
+      // 清除页面上的数据
+      this.$refs[name].resetFields();
+    },
 
-  // 延迟
-  fetchData() {
-    setTimeout(() => {
-      this.$router.push("/iview_index");
-    }, 2000);
-  },
+    // 延迟
+    fetchData() {
+      setTimeout(() => {
+        this.$router.push("/iview_index");
+      }, 2000);
+    },
 
-  // 改变按钮的显示状态：loading中。。。
-  toLoading() {
-    this.formValidate.loading = true;
+    // 改变按钮的显示状态：loading中。。。
+    toLoading() {
+      this.formValidate.loading = true;
+    },
   },
 };
 </script>
