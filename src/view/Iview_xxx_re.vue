@@ -117,29 +117,29 @@ export default {
           }
         });
     },
-  },
-  push_email() {
-    //点击提交email
-    this.axios
-      .get("127.0.0.1:8000/register/get_email_verify", {
-        params: {
-          email_address: this.formValidate.authcode,
-        },
-      })
-      .then(function (res) {
-        console.log(res);
-      });
-  },
-  // 延迟
-  fetchData2() {
-    setTimeout(() => {
-      this.$router.push("/iview_login");
-    }, 2000);
-  },
+    push_email() {
+      //点击提交email
+      this.axios
+        .get("127.0.0.1:8000/register/get_email_verify", {
+          params: {
+            email_address: this.formValidate.authcode,
+          },
+        })
+        .then(function (res) {
+          console.log(res);
+        });
+    },
+    // 延迟
+    fetchData2() {
+      setTimeout(() => {
+        this.$router.push("/iview_login");
+      }, 2000);
+    },
 
-  // 改变按钮的显示状态：loading中。。。
-  toLoading() {
-    this.formValidate.loading = true;
+    // 改变按钮的显示状态：loading中。。。
+    toLoading() {
+      this.formValidate.loading = true;
+    },
   },
 };
 </script>

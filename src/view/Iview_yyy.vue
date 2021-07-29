@@ -162,17 +162,17 @@ export default {
           }
         });
     },
-  },
-  // 延迟
-  fetchData3() {
-    setTimeout(() => {
-      this.$router.push("/iview_answer");
-    }, 2000);
-  },
+    // 延迟
+    fetchData3() {
+      setTimeout(() => {
+        this.$router.push("/iview_answer");
+      }, 2000);
+    },
 
-  // 改变按钮的显示状态：loading中。。。
-  toLoading() {
-    this.formValidate.loading = true;
+    // 改变按钮的显示状态：loading中。。。
+    toLoading() {
+      this.formValidate.loading = true;
+    },
   },
 };
 </script>

@@ -146,7 +146,6 @@ export default {
 
     // 延迟
     fetchData() {
-      console.log("fetchData");
       setTimeout(() => {
         this.$router.push("/iview_index");
       }, 2000);
@@ -154,7 +153,6 @@ export default {
 
     // 改变按钮的显示状态：loading中。。。
     toLoading() {
-      console.log("loading");
       this.formValidate.loading = true;
     },
   },
