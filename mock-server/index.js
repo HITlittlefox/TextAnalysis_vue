@@ -14,11 +14,11 @@ app.use((req, res, next) => {
 
 // Debug print request
 app.use((req, res, next) => {
-    console.log('request url = ', req.url)
-    console.log('request method = ', req.method)
-    console.log('request headers = ', req.headers)
-    console.log('request query = ', req.query)
-    console.log('request body = ', req.body)
+    console.log('request url:', req.url)
+    console.log('request method:', req.method)
+    console.log('request headers:', req.headers)
+    console.log('request query:', req.query)
+    console.log('request body:', req.body)
     next()
 })
 
@@ -33,7 +33,7 @@ app.get('/register/get_email_verify', (req, res) => {
 })
 
 app.post('/register/register', (req, res) => {
-    if (req.query.email_address && req.query.verify_code && req.query.password) {
+    if (req.body.email_address && req.body.verify_code && req.body.password) {
         res.json({ msg: '注册成功' })
     } else {
         res.json({ msg: '错误' })
@@ -41,11 +41,11 @@ app.post('/register/register', (req, res) => {
 })
 
 app.post('/login/login', (req, res) => {
-    if (req.query.email_address && req.query.password) {
+    if (req.body.email_address && req.body.password) {
         res.json({
             msg: '登录成功',
             data: {
-                username: req.query.email_address
+                username: req.body.email_address
             }
         })
     } else {
