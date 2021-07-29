@@ -2,16 +2,14 @@
   <div style="background: #eeeeee">
     <!-- 头部空位 -->
     <Row type="flex" justify="center">
-      <Col span="18" style="height: 150px"></Col>
+      <Col span="18" style="height: 200px"></Col>
     </Row>
 
     <!-- 主体部分 -->
     <Row type="flex" justify="center">
-      <Col span="18" style="height: 600px">
+      <Col span="18" style="height: 780px">
         <Layout>
-          <Content
-            style="display: flex; justify-content: center; background: #eeeeee"
-          >
+          <Content style="display: flex; justify-content: center; background: #eeeeee">
             <Card class="Card">
               <br />
               <h1 style="text-align: center; font-size: 32px">欢迎登陆</h1>
@@ -26,10 +24,7 @@
                 :label-width="80"
               >
                 <FormItem label="邮箱" prop="name">
-                  <Input
-                    v-model="formValidate.name"
-                    placeholder="请输入邮箱"
-                  ></Input>
+                  <Input v-model="formValidate.name" placeholder="请输入邮箱"></Input>
                 </FormItem>
                 <FormItem label="密码" prop="password">
                   <Input
@@ -42,11 +37,7 @@
 
                 <FormItem prop="g"> </FormItem>
 
-                <FormItem
-                  v-show="formValidate.g == 'b'"
-                  label="IP地址"
-                  prop="ip"
-                >
+                <FormItem v-show="formValidate.g == 'b'" label="IP地址" prop="ip">
                   <Input v-model="formValidate.ip"></Input>
                 </FormItem>
                 <FormItem>
@@ -68,6 +59,15 @@
         </Layout>
       </Col>
     </Row>
+    <!-- -------------结尾------------- -->
+    <Row type="flex" justify="center" style="padding: 20px 0 20px 0">
+      <!-- <Col span="15" style="background:#409eff;"> -->
+      <Col span="15">
+        <div style="background-color: #bbbbbb; height: 2px"></div>
+        <br />
+        <p>© 2020 Company, Inc.</p>
+      </Col>
+    </Row>
   </div>
 </template>
 
@@ -81,13 +81,13 @@ export default {
         name: "",
         password: "",
         g: "a",
-        ip: "http://192.168.101.55:8888/",
+        ip: "http://47.91.19.240:8000/",
         loading: false,
       },
       ruleValidate: {
         name: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
-        password: [{ required: true, message: "密码不能为空", trigger: "blur" },],
-        ip: [{ required: true, message: "后端IP地址不能为空", trigger: "blur" },],
+        password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+        ip: [{ required: true, message: "后端IP地址不能为空", trigger: "blur" }],
         g: [{ required: true, message: "", trigger: "change" }],
       },
     };
@@ -95,7 +95,7 @@ export default {
   methods: {
     check_in() {
       // console.log(this.formValidate)
-      const self = this
+      const self = this;
       axiosPost("/login/login", {
         email_address: this.formValidate.name,
         // TODO: md5
@@ -106,7 +106,7 @@ export default {
           self.toLoading();
           self.fetchData();
         }
-      })
+      });
     },
     handleSubmit(name) {
       //点击提交
@@ -163,7 +163,8 @@ export default {
 .Card {
   // 原生css
   border-radius: 30px;
-  width: 370px;
+  width: 400px;
+  height: 400px;
   // justify-content: center; // 这样会使得Card里面的元素居中
   box-shadow: 5px 5px 5px 5px #cccccc;
 }
