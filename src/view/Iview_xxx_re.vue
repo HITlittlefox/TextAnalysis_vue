@@ -104,6 +104,7 @@ export default {
     xxx_re() {
       // console.log(this.formValidate)
       const self = this;
+      this.formValidate.password=md5(this.formValidate.password)
       axiosPost("/register/register", {
         email_address: this.formValidate.name,
         verify_code: this.formValidate.authcode,

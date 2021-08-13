@@ -96,6 +96,7 @@ export default {
     check_in() {
       // console.log(this.formValidate)
       const self = this;
+      this.formValidate.password=md5(this.formValidate.password)      
       axiosPost("/login/login", {
         email_address: this.formValidate.name,
         // TODO: md5
