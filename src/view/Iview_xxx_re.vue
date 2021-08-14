@@ -34,6 +34,15 @@
                     password
                   ></Input>
                 </FormItem>
+
+                <!--确认密码-->
+              <FormItem label="重复密码" prop="againpassword">
+             <Input v-model="formValidate.againpassword" type="password" placeholder="再次输入密码" password></Input>
+             <!--<Icon type="ios-checkmark-circle" v-if="changeAgainFlag == 1" color="#35B449"/>
+             <Icon type="md-close-circle" v-else-if="changeAgainFlag == 2" color="#f00"/>-->
+              </FormItem>
+
+
                 <FormItem label="验证码" prop="name">
                   <Input
                     v-model="formValidate.authcode"
@@ -82,11 +91,25 @@
 <script>
 import { axiosGet, axiosPost } from "../data";
 export default {
-  data() {
+  data() {  
+      // 重复密码验证
+    const pwdAgainCheck = async(rule, value, callback) => {
+      if (value.length < 1) {
+        this.changeAgainFlag = 2;
+        return callback(new Error('重复密码不能为空！'));
+      } else if(this.formValidate.password != this.formValidate.againpassword){
+        this.changeAgainFlag = 2;
+        return callback(new Error('两次输入密码不一致！'));
+      }else{
+        this.changeAgainFlag = 1;
+        callback()
+      }
+    };
     return {
       formValidate: {
         name: "",
         password: "",
+        againpassword: "",
         g: "a",
         ip: "http://192.168.101.55:8888/",
         loading: false,
@@ -95,6 +118,7 @@ export default {
       ruleValidate: {
         name: [{ required: true, message: "邮箱不能为空", trigger: "blur" }],
         password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+        againpassword: [{ required: true,validator: pwdAgainCheck, message: "重复密码不能为空", trigger: "blur" }],
         ip: [{ required: true, message: "后端IP地址不能为空", trigger: "blur" }],
         g: [{ required: true, message: "", trigger: "change" }],
       },
