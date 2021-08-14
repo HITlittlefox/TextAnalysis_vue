@@ -62,8 +62,8 @@
          
             <Col span="12">
               <DatePicker
-                :value="value2"
-                format="yyyy-MM-dd"
+                v-model="detail.value2"
+                format="yyyy年M月d日"
                 type="daterange"
                 placement="bottom-end"
                 placeholder="Select date"
@@ -161,7 +161,7 @@ export default {
       
       //value2: [detail.start_date,detail.end_date],
 
-      value2: ["2016-01-01", "2016-02-15"],
+      //value2: ["2016-01-01", "2016-02-15"],
       columns1: [
         {
           title: "Title",
@@ -210,6 +210,7 @@ export default {
         stock_code: "",
         start_date: "",
         end_date: "",
+        value2: ["2016-01-01", "2016-02-15"],
       },
     };
   },
@@ -220,8 +221,8 @@ export default {
       this.formValidate.loading=true
       axiosGet("/service/get_company_news", {
         stock_code: this.detail.stock_code,
-        start_date: this.value2[0],
-        end_date: this.value2[1],
+        start_date: this.detail.value2[0],
+        end_date: this.detail.value2[1],
       }).then(function (res) {
         console.log(res);
         if (res.msg == "查询成功") {
