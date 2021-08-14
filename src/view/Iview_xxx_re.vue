@@ -7,7 +7,7 @@
 
     <!-- 主体部分 -->
     <Row type="flex" justify="center">
-      <Col span="18" style="height: 600px">
+      <Col span="18" style="height: 1000px">
         <Layout>
           <Content style="display: flex; justify-content: center; background: #eeeeee">
             <Card class="Card">
