@@ -116,7 +116,7 @@
           <br />
         </Card>
       </Col>
-      <Col span="30">
+      <Col span="30" style="text-align=center" align="center">
         <br />
 
         <Card
@@ -137,6 +137,14 @@
               ></ListItem>
             </List>-->
             <Table stripe :columns="columns1" :data="data1"></Table>
+<!--
+      <Table border ref="tables" :columns="columns1" :data="data1">
+          <template slot-scope="{ row }" slot="action" >
+            <Button  size="small" class='btn' @click="editFn(row)">编辑</Button>
+            <Button  size="small" class='btn' @click="deleteFn(row)">删除</Button>
+          </template>
+      </Table>
+-->
           </div>
         </Card>
       </Col>
@@ -164,8 +172,15 @@ export default {
       //value2: ["2016-01-01", "2016-02-15"],
       columns1: [
         {
-          title: "Title",
-          key: "title",
+          title: 'title',
+          key: 'url',
+          align: 'center',
+          width: '500',
+          render: (h, params) => {
+            return h('a', {
+              attrs: { href: params.row.url, target: '_blank', title: params.row.title }
+            }, params.row.title)
+          }
         },
         {
           title: "Date",
@@ -177,14 +192,14 @@ export default {
           key: "source",
           width: "130px",
         },
-        {
-          title: "Url",
-          key: "url",
-        },
+        //{
+        //  title: "Url",
+        //  key: "url",
+       // },
         {
           title: "Emot",
           key: "emot",
-          width: "72px",
+          width: "130px",
         },
       ],
       data1: [],
@@ -215,6 +230,12 @@ export default {
     };
   },
   methods: {
+        editFn (row) {
+      console.log(row)
+    },
+    deleteFn (row) {
+      console.log(row)
+    },
     request() {
       // console.log(this.formValidate)
       const self = this;
