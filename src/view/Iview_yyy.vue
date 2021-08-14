@@ -47,10 +47,10 @@
           <Row
             ><Col span="12">
               <Input
-                number
-                maxlength="8"
+                type="date"
+              
                 placeholder="请输入起始查询⽇期（8位数字）"
-                style="width: 300px"
+                style="width: 500px"
                 v-model="detail.start_date"
               />
             </Col>
@@ -59,19 +59,19 @@
           <Row
             ><Col span="12">
               <Input
-                number
-                maxlength="8"
+                type="date"
+               
                 placeholder="请输入结束查询⽇期（8位数字）"
-                style="width: 300px"
+                style="width: 500px"
                 v-model="detail.end_date"
               /> </Col
           ></Row>
           <br />
           <Input
-            number
+            type="text"
             maxlength="6"
             placeholder="请输入您感兴趣的股票代码（6位数字）"
-            style="width: 300px"
+            style="width: 500px"
             v-model="detail.stock_code"
           />
 
