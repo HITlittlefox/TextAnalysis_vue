@@ -33,7 +33,7 @@
     <!-- -------------主体------------- -->
     <Row type="flex" justify="center" style="padding: 0px 160px 200px 0">
       <!-- <Col span="15" style="background:#409eff;"> -->
-      <Col span="30">
+      <Col span="30" style="text-align=center" align="center">
         <Card
           class="Card"
           v-for="heading in headings"
@@ -44,42 +44,70 @@
 
           <!-- <p style="font-size: 36px" align="center">输入吧~</p>-->
 
-          <Row
-            ><Col span="12">
-              <Input
+         <!--
+            <Col span="12">
+              <DatePicker
+                :value="value1"
+                format="yyyyMMdd"
                 type="date"
-              
-                placeholder="请输入起始查询⽇期（8位数字）"
+                placeholder="Select date"
                 style="width: 500px"
-                v-model="detail.start_date"
-              />
+                
+                editable="false"
+              ></DatePicker>
             </Col>
+        
+          <br/>
+          -->
+         
+            <Col span="12">
+              <DatePicker
+                :value="value2"
+                format="yyyy-MM-dd"
+                type="daterange"
+                placement="bottom-end"
+                placeholder="Select date"
+                style="width: 400px"
+                size="large"
+                >
+              </DatePicker>
+            </Col>
+      
+          <!--
+          <Row>
+            <Input
+              type="date"
+              placeholder="请输入起始查询⽇期（8位数字）"
+              style="width: 500px"
+              v-model="detail.start_date"/>
           </Row>
           <br />
-          <Row
-            ><Col span="12">
-              <Input
-                type="date"
-               
-                placeholder="请输入结束查询⽇期（8位数字）"
-                style="width: 500px"
-                v-model="detail.end_date"
-              /> </Col
-          ></Row>
+          <Row>
+            <Input
+              type="date"
+              placeholder="请输入结束查询⽇期（8位数字）"
+              style="width: 500px"
+              v-model="detail.end_date"/>
+          </Row>
           <br />
+          -->
+          <br/>
           <Input
             type="text"
             maxlength="6"
             placeholder="请输入您感兴趣的股票代码（6位数字）"
-            style="width: 500px"
+            size="large"
+            style="width: 400px"
             v-model="detail.stock_code"
           />
-
+<br /><br />
           <Button
             :loading="formValidate.loading"
             v-on:click="request"
             type="success"
-            size="default"
+            size="large"
+
+            style="width: 400px"
             ><span v-if="!formValidate.loading">提交</span></Button
           >
           <router-link to="iview_answer"></router-link>
@@ -130,6 +158,10 @@ import { axiosGet, axiosPost } from "../data";
 export default {
   data() {
     return {
+      
+      //value2: [detail.start_date,detail.end_date],
+
+      value2: ["2016-01-01", "2016-02-15"],
       columns1: [
         {
           title: "Title",
@@ -185,14 +217,15 @@ export default {
     request() {
       // console.log(this.formValidate)
       const self = this;
+      this.formValidate.loading=true
       axiosGet("/service/get_company_news", {
         stock_code: this.detail.stock_code,
-        start_date: this.detail.start_date,
-        end_date: this.detail.end_date,
+        start_date: this.value2[0],
+        end_date: this.value2[1],
       }).then(function (res) {
         console.log(res);
         if (res.msg == "查询成功") {
-          self.toLoading();
+          self.formValidate.loading = false
           self.list = res.data.news;
           self.data1 = res.data.news;
         }

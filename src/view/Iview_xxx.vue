@@ -96,15 +96,17 @@ export default {
     check_in() {
       // console.log(this.formValidate)
       const self = this;
-      this.formValidate.password=md5(this.formValidate.password)      
+      this.formValidate.loading=true
+      //this.formValidate.password=md5(this.formValidate.password)      
       axiosPost("/login/login", {
         email_address: this.formValidate.name,
         // TODO: md5
-        password: this.formValidate.password,
+        password: md5(this.formValidate.password),
       }).then(function (res) {
         console.log(res);
         if (res.msg == "登录成功") {
-          self.toLoading();
+          self.formValidate.loading = false
+          //self.toLoading();
           self.fetchData();
         }
       });
@@ -149,7 +151,7 @@ export default {
     fetchData() {
       setTimeout(() => {
         this.$router.push("/iview_index");
-      }, 2000);
+      }, 200);
     },
 
     // 改变按钮的显示状态：loading中。。。
