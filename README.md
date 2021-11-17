@@ -1,5 +1,5 @@
 # 魔改后“能用”的前端登陆界面：
-# 关键词：login、index、详情页、vue、vue-ui、router、axios、md5加密、前端分页（在做了在做了）
+# 关键词：login、index、详情页、vue、vue-ui、router、axios、md5加密、前端分页
 
 ip与端口的修改：`data.js`文件中`serverAddr`
 mock ip:port    `const serverAddr = "http://localhost:3000"`
